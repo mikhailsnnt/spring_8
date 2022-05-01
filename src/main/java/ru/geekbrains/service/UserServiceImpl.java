@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserDto> findUsersByFilter(String usernameFilter, String emailFilter, Integer page, Integer size) {
+    public Page<UserDto> findUsersByFilter(String usernameFilter, String emailFilter, Integer page, Integer size,String sortBy) {
         Specification<User> spec = Specification.where(null);
         if (usernameFilter != null) {
             spec = spec.and(UserSpecifications.usernameContaining(usernameFilter));
@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
         if (emailFilter != null) {
             spec = spec.and(UserSpecifications.emailContaining(emailFilter));
         }
-        return userRepository.findAll(spec, PageRequest.of(page, size, Sort.by("id")))
+        return userRepository.findAll(spec, PageRequest.of(page, size, Sort.by(sortBy)))
                 .map(UserServiceImpl::userToDto);
     }
 
