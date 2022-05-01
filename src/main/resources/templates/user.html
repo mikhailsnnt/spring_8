@@ -68,7 +68,7 @@
                         <a href="#"><i class="fa fa-sort-down"></i></a>
                     </th>
                     <th scope="col">Email
-                        <a href="#"><i class="fa fa-sort-down"></i></a>
+                        <a th:href="@{/user(sortBy=email)}"><i class="fa fa-sort-down"></i></a>
                     </th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -97,20 +97,20 @@
         <div th:unless="${users.isEmpty()}" class="col-12">
             <nav aria-label="...">
                 <ul class="pagination">
-                    <li class="page-item disabled">
-                        <a class="page-link" href="#" tabindex="-1">Previous</a>
+                    <li class="page-item" th:classappend="${users.isFirst()} ? 'disabled'">
+                        <a class="page-link" th:href="@{/user(page=${users.number}, size=${users.size}, filterUsername = ${param.usernameFilter}, filterEmail = ${param.emailFilter})}" tabindex="-1">Previous</a>
                     </li>
 
                     <li th:each="num : ${#numbers.sequence(1, users.totalPages)}"
                         th:classappend="${num == users.number + 1} ? 'active'"
                         class="page-item">
-                        <a class="page-link" th:href="@{/user(page=${num}, size=${users.size})}">[[${num}]]
+                        <a class="page-link" th:href="@{/user(page=${num}, size=${users.size}, filterUsername = ${param.usernameFilter}, filterEmail = ${param.emailFilter})}">[[${num}]]
                             <span th:if="${num == users.number + 1}" class="sr-only">(current)</span>
                         </a>
                     </li>
 
-                    <li class="page-item">
-                        <a class="page-link" href="#">Next</a>
+                    <li class="page-item" th:classappend="${users.isLast()} ? 'disabled'" >
+                        <a class="page-link" th:href="@{/user(page=${users.number}+2, size=${users.size}, filterUsername = ${param.usernameFilter}, filterEmail = ${param.emailFilter})}">Next</a>
                     </li>
                 </ul>
             </nav>
