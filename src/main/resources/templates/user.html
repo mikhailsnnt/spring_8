@@ -62,13 +62,13 @@
                 <thead>
                 <tr>
                     <th scope="col">Id
-                        <a href="#"><i class="fa fa-sort-down"></i></a>
+                        <a th:href="@{/user(size=${users.size}, filterUsername = ${param.usernameFilter}, filterEmail = ${param.emailFilter}, sortBy = ${'id'})}"><i class="fa fa-sort-down"></i></a>
                     </th>
                     <th scope="col">Username
-                        <a href="#"><i class="fa fa-sort-down"></i></a>
+                        <a th:href="@{/user(size=${users.size}, filterUsername = ${param.usernameFilter}, filterEmail = ${param.emailFilter}, sortBy = ${'username'})}"><i class="fa fa-sort-down"></i></a>
                     </th>
                     <th scope="col">Email
-                        <a th:href="@{/user(sortBy=email)}"><i class="fa fa-sort-down"></i></a>
+                        <a th:href="@{/user(size=${users.size}, filterUsername = ${param.usernameFilter}, filterEmail = ${param.emailFilter}, sortBy = ${'email'})}"><i class="fa fa-sort-down"></i></a>
                     </th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -104,7 +104,7 @@
                     <li th:each="num : ${#numbers.sequence(1, users.totalPages)}"
                         th:classappend="${num == users.number + 1} ? 'active'"
                         class="page-item">
-                        <a class="page-link" th:href="@{/user(page=${num}, size=${users.size}, filterUsername = ${param.usernameFilter}, filterEmail = ${param.emailFilter})}">[[${num}]]
+                        <a class="page-link" th:href="@{/user(page=${num}, size=${users.size}, filterUsername = ${param.usernameFilter}, filterEmail = ${param.emailFilter}, sortBy=${param.sortBy})}">[[${num}]]
                             <span th:if="${num == users.number + 1}" class="sr-only">(current)</span>
                         </a>
                     </li>
